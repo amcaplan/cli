@@ -3,7 +3,7 @@ import {selectOrCreateApp} from './dev/select-app'
 import {App, FunctionExtension, ThemeExtension, UIExtension} from '../models/app/app'
 import {configurationFileNames, functionExtensions, themeExtensions, uiExtensions} from '../constants'
 import {selectOrganizationPrompt} from '../prompts/dev'
-import {os, output, path, session, store, dependency} from '@shopify/cli-kit'
+import {os, output, path, session, store, dependency, error} from '@shopify/cli-kit'
 
 export type Format = 'json' | 'text'
 interface InfoOptions {
@@ -16,6 +16,7 @@ interface Configurable {
 }
 
 export async function info(app: App, {format, webEnv}: InfoOptions): Promise<output.Message> {
+  throw new error.Bug('This is tests 2')
   if (webEnv) {
     return infoWeb(app, {format})
   } else {

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/app",
-  "version": "3.0.24",
+  "version": "3.0.999",
   "description": "Utilities for loading, building, and publishing apps.",
   "homepage": "https://github.com/shopify/cli#readme",
   "bugs": {

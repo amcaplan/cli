@@ -1,6 +1,6 @@
 {
   "name": "@shopify/cli",
-  "version": "3.0.24",
+  "version": "3.0.999",
   "private": false,
   "description": "A CLI tool to build for the Shopify platform",
   "homepage": "https://github.com/shopify/cli#readme",
