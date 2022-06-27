@@ -4,12 +4,12 @@ import {Errors} from '@oclif/core'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import sourceMapSupport from 'source-map-support'
+// import sourceMapSupport from 'source-map-support'
 
 export {ExtendableError} from 'ts-error'
 export {AbortSignal} from 'abort-controller'
 
-sourceMapSupport.install()
+// sourceMapSupport.install()
 
 enum FatalErrorType {
   Abort,
@@ -79,13 +79,16 @@ export async function handler(error: Error): Promise<Error> {
   return Promise.resolve(error)
 }
 
-export function mapper(error: Error): Promise<Error> {
+export async function mapper(error: Error): Promise<Error> {
   if (error instanceof Errors.CLIError) {
     const mappedError = new Abort(error.message)
     mappedError.stack = error.stack
-    return Promise.resolve(mappedError)
+    return mappedError
+    // eslint-disable-next-line no-prototype-builtins, no-negated-condition
+  } else if (!Error.prototype.isPrototypeOf(error)) {
+    return new Error(`Unknown error: ${JSON.stringify(error, null, 2)}`)
   } else {
-    return Promise.resolve(error)
+    return error
   }
 }
 
