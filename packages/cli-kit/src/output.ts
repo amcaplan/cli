@@ -5,6 +5,7 @@ import constants from './constants.js'
 import {DependencyManager} from './dependency.js'
 import {
   append as fileAppend,
+  appendSync as fileAppendSync,
   mkdirSync as fileMkdirSync,
   readSync as fileReadSync,
   sizeSync as fileSizeSync,
@@ -561,7 +562,14 @@ export function logToFile(message: string, logLevel: string): void {
   // If file logging hasn't been initiated, skip it
   if (!logFileExists()) return
   const timestamp = new Date().toISOString()
-  fileAppend(logFile, `[${timestamp} ${logLevel}]: ${message}\n`)
+  const logContents = `[${timestamp} ${logLevel}]: ${message}\n`
+  if (logLevel === 'ERROR') {
+    // Error logs usually happen just before process exits. We need to handle
+    // this synchronously to give time for the file to be written before exit.
+    fileAppendSync(logFile, logContents)
+  } else {
+    fileAppend(logFile, logContents)
+  }
 }
 
 function withOrWithoutStyle(message: string): string {
