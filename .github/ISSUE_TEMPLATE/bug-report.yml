@@ -54,6 +54,10 @@ body:
       placeholder: It didn't work
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |-
+        <details><summary>Verbose output</summary>
   - type: textarea
     id: verbose_output
     attributes:
@@ -62,6 +66,10 @@ body:
       render: shell
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |-
+        </details>
   - type: textarea
     id: repro_steps
     attributes:
